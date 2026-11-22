@@ -2,11 +2,10 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply from: '../dependencies.gradle'
 
-apply from: '../bintrayconfig.gradle'
 
 android {
+  namespace 'com.afollestad.vvalidator'
   compileSdkVersion versions.compileSdk
-  buildToolsVersion versions.buildTools
 
   defaultConfig {
     minSdkVersion versions.minSdk
@@ -19,7 +18,10 @@ android {
 
   compileOptions {
     kotlinOptions.freeCompilerArgs += ['-module-name', "com.afollestad.vvalidator"]
+    sourceCompatibility JavaVersion.VERSION_11
+    targetCompatibility JavaVersion.VERSION_11
   }
+  kotlinOptions { jvmTarget = '11' }
 
   lintOptions {
     abortOnError false
@@ -39,4 +41,3 @@ dependencies {
   testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:' + versions.mockitoKotlin
 }
 
-apply from: '../spotless.gradle'

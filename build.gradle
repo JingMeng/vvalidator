@@ -1,18 +1,14 @@
 apply from: './dependencies.gradle'
-apply from: './versionsPlugin.gradle'
 
 buildscript {
   apply from: './dependencies.gradle'
 
   repositories {
     google()
-    jcenter()
+    mavenCentral()
   }
   dependencies {
     classpath 'com.android.tools.build:gradle:' + versions.gradlePlugin
-    classpath "com.diffplug.spotless:spotless-plugin-gradle:" + versions.spotlessPlugin
-    classpath 'com.novoda:bintray-release:' + versions.bintrayRelease
-    classpath 'com.github.ben-manes:gradle-versions-plugin:' + versions.versionsPlugin
     classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:' + versions.kotlin
   }
 }
@@ -20,7 +16,7 @@ buildscript {
 allprojects {
   repositories {
     google()
-    jcenter()
+    mavenCentral()
   }
 
   tasks.withType(Javadoc).all {
@@ -30,4 +26,9 @@ allprojects {
 
 task clean(type: Delete) {
   delete rootProject.buildDir
+}
+
+tasks.withType(JavaCompile).configureEach {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
 }
